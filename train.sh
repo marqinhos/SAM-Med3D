@@ -1,1 +1,1 @@
-python train.py --multi_gpu
+python train.py 

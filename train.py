@@ -36,7 +36,7 @@ parser.add_argument('--device', type=str, default='cuda')
 parser.add_argument('--work_dir', type=str, default='./work_dir')
 
 # train
-parser.add_argument('--num_workers', type=int, default=24)
+parser.add_argument('--num_workers', type=int, default=1)
 parser.add_argument('--gpu_ids', type=int, nargs='+', default=[0,1])
 parser.add_argument('--multi_gpu', action='store_true', default=False)
 parser.add_argument('--resume', action='store_true', default=False)
@@ -47,7 +47,7 @@ parser.add_argument('--step_size', type=list, default=[120, 180])
 parser.add_argument('--gamma', type=float, default=0.1)
 parser.add_argument('--num_epochs', type=int, default=200)
 parser.add_argument('--img_size', type=int, default=128)
-parser.add_argument('--batch_size', type=int, default=10)
+parser.add_argument('--batch_size', type=int, default=1)
 parser.add_argument('--accumulation_steps', type=int, default=20)
 parser.add_argument('--lr', type=float, default=8e-4)
 parser.add_argument('--weight_decay', type=float, default=0.1)
@@ -439,6 +439,8 @@ def device_config(args):
             args.nodes = 1
             args.ngpus_per_node = len(args.gpu_ids)
             args.world_size = args.nodes * args.ngpus_per_node
+            # args.world_size = 8
+
 
     except RuntimeError as e:
         print(e)
